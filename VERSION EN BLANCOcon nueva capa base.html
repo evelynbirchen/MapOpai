@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html>
+  <head>
+      <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+      
+
+      <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
+      <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+
+      <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
+      <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
+
+      <script src="https://cdn.maptiler.com/leaflet-maptilersdk/v2.0.0/leaflet-maptilersdk.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+      
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+      <link rel="stylesheet" href="/proyecto1.css">
+
+      
+
+    </head>
+  
+  <body>
+
+   <!-- Navbar -->
+<nav class="navbar fixed-top navbar-dark ">
+    <div class="container-fluid d-flex align-items-center justify-content-between">
+        <!-- Izquierda: Logo y título -->
+        <div class="d-flex align-items-center padding:7px">
+           
+                <img src="/logos/CONICETNEGRO.png" width="65" height="35" class="d-inline-block align-top me-2" alt=""> 
+                <img src="/logos/UNLPNEGRO.png" width="75" height="35" class="d-inline-block align-top me-2" alt=""> 
+                
+                <span class="fw-semibold "> OPai </span>
+
+            <!-- Descripción del observatorio con idiomas -->
+            <div class="lang me-2" data-lang="es">
+                <span class=" fw-light"> | Observatorio de Paisaje del Gran La Plata</span>
+            </div>
+            <div class="lang" data-lang="en">
+                <span class=" fw-light "> | Landscape Observatory of Greater La Plata</span>
+            </div>
+        </div>
+
+        <!-- Derecha: Botones de redes sociales y selector de idioma -->
+        <div class="d-flex align-items-center">
+            <!-- Botón de Facebook -->
+            <button class="btn   sidebar-button" type="button" id="facebookbutton" aria-expanded="false">
+                <i class="bi bi-facebook  fs-6"></i>
+            </button>
+            
+            <!-- Botón de Instagram -->
+            <button class="btn  sidebar-button" type="button" id="instagrambutton" aria-expanded="false">
+                <i class="bi bi-instagram  fs-6"></i>
+            </button>
+            
+            <!-- Selector de idioma -->
+            <div class="dropdown">
+                <button class="btn dropdown-toggle sidebar-button" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    Language
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
+                    <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
+                    <li><a class="dropdown-item" href="#" data-lang="es">Español</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+
+
+    <!-- Barra lateral -->
+        <div class="flex-shrink-0 p-3 " style="width: 267px; display: flex; flex-direction: column; height: 650px; ">
+            <a href="/" class="d-flex align-items-center lang" style="pointer-events: none; opacity: 0.5;"> <!-- ACA ESTA DESAILITADO EL ENLACE CON TODA LA SECCION DE STYLE  HACER QUE HOME SEA EL RESET EL PLANo? -->
+              <i class="bi bi-house-fill  me-2 fs-4"></i>  
+              <span class="fs-5 fw-light lang " data-lang="en"> Home </span>
+              <span class="fs-5 fw-light lang " data-lang="es"> Casa </span>  
+            </a>
+
+                       
+            <h5 class="sidebar-heading lang" data-lang="es"> CAPAS BASE </h5>
+            <h5 class="sidebar-heading lang" data-lang="en"> BASE LAYERS </h5>
+                      
+            <label class="btn active w-100 sidebar-button" id="fondoblancoboton">
+                <span class="lang" data-lang="en"> White view </span> <span  class="lang" data-lang="es"> Vista en blanco </span>
+            </label>   
+
+            <label class="btn w-100 sidebar-button" id="vistasatelitalboton">
+                <span class="lang" data-lang="en"> Satellital view </span> <span class="lang" data-lang="es"> Vista satelital </span>
+            </label>      
+            
+            <label class="btn w-100 sidebar-button" id="Landscapeboton">
+                <span class="lang" data-lang="en"> Landscape view </span> <span class="lang" data-lang="es"> Vista paisaje </span>
+            </label> 
+          
+           
+            <h5 class=" sidebar-heading lang " data-lang="es"> CAPAS TEMÁTICAS</h5>
+            <h5 class=" sidebar-heading lang" data-lang="en"> THEME LAYERS </h5>
+           
+            <div class="btn-group-vertical btn-group-toggle w-100 border-radius-0 " data-toggle="buttons">
+                
+                <label class="btn w-100 sidebar-button" id="espaciosverdesboton" >
+                    <span class="lang" data-lang="en"> Green spaces</span> <span class="lang" data-lang="es"> Espacios verdes</span>
+                    
+                </label>
+
+                <div id="leyenda-espacios-verdes" class="leyenda" style="display: none;">                  
+                    
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 20px; height: 20px; background-color: #87bd84; margin-right: 10px; margin-left: 5px;"> </div>
+                        <span class="lang" data-lang="es"> Espacios verdes </span>
+                        <span class="lang" data-lang="en"> Green spaces </span>
+                    </div>           
+                </div>
+
+            </div>
+
+            <div class="btn-group-vertical btn-group-toggle w-100 border-radius-0" data-toggle="buttons">
+                <label class="btn w-100 sidebar-button" id="arbolesboton">
+                    <span class="lang" data-lang="en"> Street Trees </span> <span class="lang" data-lang="es"> Arbolado urbano </span>
+                </label>
+
+                <div id="leyenda-arboles" class="leyenda" style="display: none;">
+                   
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 17px; height: 3px; background-color: #93d46e; margin-right: 10px; margin-left: 5px;"></div>
+                        <span class="lang" data-lang="es"> Más de 10 cada 100 m </span>
+                        <span class="lang" data-lang="en"> More than 10 every 10 m </span>
+                    </div>
+            
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 17px; height: 3px; background-color: #d4be6e; margin-right: 10px; margin-left: 5px;"></div>
+            
+                        <span class="lang" data-lang="es"> Entre 5 y 9 cada 100 m </span>
+                        <span class="lang" data-lang="en"> Between 5 and 9 every 100 m </span>
+                    </div>
+            
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 17px; height: 3px; background-color: #d46e6e; margin-right: 10px; margin-left: 5px;"></div>
+            
+                        <span class="lang" data-lang="es"> Menos de 5 cada 100 m </span>
+                        <span class="lang" data-lang="en"> Less than 5 every 100 m</span>
+                    </div>
+
+                </div>
+
+            </div>
+                
+
+            <div class="btn-group-vertical btn-group-toggle w-100 border-radius-0" data-toggle="buttons">
+                <label class="btn w-100 sidebar-button" id="veredasboton">
+                    <span class="lang" data-lang="en"> Sidewalks </span> <span class="lang" data-lang="es"> Veredas </span>
+                </label>
+
+                <div id="leyenda-veredas" class="leyenda" style="display: none;">
+                    
+                    <div style="display: flex; align-items: center;">
+
+                        <div style="width: 17px; height: 3px; background-color: #93d46e; margin-right: 10px; margin-left: 5px;"></div>
+                        <span class="lang" data-lang="es"> Verifica 1,80 m libres </span>
+                        <span class="lang" data-lang="en"> Verifies 1,80 m free </span>
+
+                    </div>
+            
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 17px; height: 3px; background-color: #d4be6e; margin-right: 10px; margin-left: 5px;"></div>
+            
+                        <span class="lang" data-lang="es"> No verifica </span>
+                        <span class="lang" data-lang="en"> Not verifies  </span>
+                    </div>
+            
+                    <div style="display: flex; align-items: center;">
+                        <div style="width: 17px; height: 3px; background-color: #d46e6e; margin-right: 10px; margin-left: 5px;"></div>
+            
+                        <span class="lang" data-lang="es"> No existe la vereda </span>
+                        <span class="lang" data-lang="en"> There is no sidewalk </span>
+                    </div>
+                </div>
+            </div>
+            <div style="margin-top: auto">
+                <h5 class="sidebar-heading lang" data-lang="es"> Este sitio está diseñado y codificado a mano. Visita el perfil de LinkedIn de <a href="https://www.linkedin.com/in/marianabirche/" id="myLink">  Mariana Birche</a> </h5>
+                <h5 class="sidebar-heading lang" data-lang="en"> This site is hand-crafted and coded. Visit <a href="https://www.linkedin.com/in/marianabirche/" id="myLink"> Mariana Birche's LinkedIn </a> </h5>
+
+            </div>
+            
+        </div>                    
+
+    <!-- Contenedor del mapa -->
+      <div id="map" style= "width: 100%; height: 100%;" ></div>
+      
+    
+    <script>
+         
+
+     // Asegúrate de que el DOM esté completamente cargado antes de inicializar el mapa
+  document.addEventListener('DOMContentLoaded', function () {
+    // Claves de MapTiler
+    const key = 'DZHOeoNjcOdQ0204Rrhw';
+    maptilersdk.config.apiKey = key;
+
+    // Definir las capas
+    const LAYERS = {
+      fondoBlancoLayer: L.tileLayer(`https://api.maptiler.com/maps/dataviz-light/{z}/{x}/{y}.png?key=${key}`, {
+        attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a> contributors',
+        tileSize: 512,
+        zoomOffset: -1,
+        maxZoom: 20
+      }),
+
+
+      
+      vistaSatelitalLayer: L.tileLayer(`https://api.maptiler.com/tiles/satellite-v2/{z}/{x}/{y}.jpg?key=${key}`, {
+        attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a> contributors',
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 0,
+        maxZoom: 20
+      }),
+
+      Landscape: L.tileLayer(`https://api.maptiler.com/maps/landscape/{z}/{x}/{y}.png?key=${key}`, {
+        attribution: '&copy; <a href="https://www.maptiler.com/copyright/">MapTiler</a> contributors',
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 0,
+        maxZoom: 20
+      }),
+      
+
+      espaciosVerdesLayer: null,
+      arbolesLayer: null,
+      veredasLayer: null
+    };
+
+    // Inicializar el mapa con la capa fondoBlancoLayer activa
+    const map = L.map('map', {
+      center: [-34.90145, -57.93], // Coordenadas iniciales
+      zoom: 12,                      // Nivel de zoom inicial
+      layers: [LAYERS.fondoBlancoLayer] // Agregar capa inicial
+    });
+
+    console.log("Mapa inicializado con fondoBlancoLayer.");
+
+
+
+  
+
+    //escala
+        L.control.scale({
+            position: 'bottomleft', // Opciones: 'bottomleft', 'bottomright', 'topleft', 'topright'
+            imperial: false,       // Mostrar solo el sistema métrico (kilómetros y metros)
+            maxWidth: 150          // Ancho máximo de la escala en píxeles
+        }).addTo(map);
+
+    //DIBUJO
+        // Capa para almacenar los elementos dibujados
+    let drawnItems = new L.FeatureGroup();
+    map.addLayer(drawnItems);
+
+    // Agrega el control de dibujo
+    let drawControl = new L.Control.Draw({
+        edit: {
+            featureGroup: drawnItems, // Permite editar elementos dibujados
+
+        },
+        draw: {
+            polyline: true,
+            polygon: true,
+            rectangle: true,
+            circle: true,
+            marker: true,
+        }
+    });
+    map.addControl(drawControl);
+
+    // Maneja los eventos de dibujo
+    map.on(L.Draw.Event.CREATED, function (event) {
+        let layer = event.layer;
+
+        // Agrega el elemento dibujado a la capa
+        drawnItems.addLayer(layer);
+    });
+
+    // Maneja los eventos de edición o eliminación
+    map.on(L.Draw.Event.DELETED, function (event) {
+        console.log("Elementos eliminados:", event.layers);
+    });
+
+    // Función para borrar todos los elementos dibujados
+    function clearAllDrawings() {
+        drawnItems.clearLayers();
+        console.log("Todos los elementos dibujados han sido eliminados.");
+    }
+
+    // Agregar un botón para borrar en HTML
+    let clearButton = L.control({ position: 'topleft' });
+    clearButton.onAdd = function () {
+        let div = L.DomUtil.create('div', 'leaflet-bar leaflet-control leaflet-control-custom');
+        div.innerHTML = '<button style="background-color: #b04848;  border:none; border-radius: 8px; color: white; padding-top: 4px; padding-right: 7px; padding-bottom: 4px; padding-left: 7px; "> <i class="bi bi-trash" style="font-size: 1.1rem;"></i> </button>';
+        div.onclick = clearAllDrawings;
+        return div;
+    };
+    clearButton.addTo(map);
+
+    
+    
+    function toggleLayer(layer, buttonId, layerKey, language) {
+    const button = document.getElementById(buttonId);
+
+    if (map.hasLayer(layer)) {
+        // Si la capa está en el mapa, la removemos
+        map.removeLayer(layer);
+        button.classList.remove('active'); // Removemos la clase activa del botón
+
+        // Ocultamos la leyenda correspondiente
+        document.getElementById(`leyenda-${layerKey}`).style.display = 'none';
+    } else {
+        // Si la capa no está en el mapa, la agregamos
+        map.addLayer(layer);
+        button.classList.add('active'); // Marcamos el botón como activo
+
+        // Mostramos la leyenda correspondiente
+        document.getElementById(`leyenda-${layerKey}`).style.display = 'block';
+
+        // Actualizamos el contenido de la leyenda al idioma seleccionado
+        updateLegend(layerKey, language);
+    }
+    }
+
+
+
+    // Inicializar botones con el estado actual de las capas
+    function initializeButtonStates() {
+    
+    // Capas base
+    toggleButtonState(LAYERS.fondoBlancoLayer, 'fondoblancoboton');
+    toggleButtonState(LAYERS.vistaSatelitalLayer, 'vistasatelitalboton');
+    toggleButtonState(LAYERS.Landscape, 'Landscapeboton');
+
+    // Capas adicionales
+    toggleButtonState(LAYERS.espaciosVerdesLayer, 'espaciosverdesboton');
+    toggleButtonState(LAYERS.arbolesLayer, 'arbolesboton');
+    toggleButtonState(LAYERS.veredasLayer, 'veredasboton');
+    }  
+
+    
+
+    //CAPAS GEOJSON
+        let espaciosVerdesLayer, arbolesLayer, veredasLayer;          // estos nombres son cualquier nombre se vinculan al archivo en el reglon 86 por ej.
+
+        fetch('espacios_verdes.geojson')  // Asegúrate de que el archivo esté en la ruta correcta
+        .then(response => response.json())
+        .then(data => {
+        console.log(data); // Verifica si los datos se cargan correctamente
+          LAYERS.espaciosVerdesLayer = L.geoJSON(data, {
+            style: function(feature) {
+              return {
+                color: '#ffffff',  // Color del borde del polígono
+                fillColor: '#87bd84',  // Color de relleno del polígono
+                fillOpacity: 0.5,  // Opacidad del relleno (0 es transparente, 1 es opaco)
+                weight: 1  // Grosor del borde del polígono
+              };
+            }, // Esta coma no va si no sigo escribiendo con onEachFeature
+            
+            onEachFeature: function (feature, layer) {
+            const name = feature.properties.Name || "Sin nombre";
+            const superficie = feature.properties.sup ? `${feature.properties.sup} m²` : "No disponible";
+            const puntaje = feature.properties.PUNTAJETOTAL || "Sin puntaje";
+
+              layer.bindPopup(
+              `<b>${name}</b><br>Superficie: ${superficie}<br>Puntaje: ${puntaje}`
+              );
+            }
+
+          }); //SI QUIERO QUE INICIE CON LA CAPA MOSTRANDOSE
+
+          // Agregar eventos para las otras capas
+          document.getElementById('espaciosverdesboton').addEventListener('click', function () {
+            toggleLayer(LAYERS.espaciosVerdesLayer, 'espaciosverdesboton', 'espaciosVerdes', 'es');
+          });
+
+
+        })
+        .catch(error => console.error("Error al cargar el archivo GeoJSON:", error));
+
+        fetch('Arboles_lineas.geojson')  // Asegúrate de que el archivo esté en la ruta correcta
+        .then(response => response.json())
+        .then(data => {
+        console.log(data); // Verifica si los datos se cargan correctamente
+          LAYERS.arbolesLayer = L.geoJSON(data, {
+              style: function(feature) {
+                let color;
+                switch (feature.properties.arboles) {
+                  case 'Más de 10 árboles cada 100 m':
+                    color = '#93d46e';  
+                    break;
+                  case 'Entre 5 y 9 árboles cada 100 m':
+                    color = '#d4be6e';  
+                    break;
+                  case 'Menos de 5 árboles cada 100 m':
+                    color = '#d46e6e';  
+                    break;
+                  default:
+                    color = '#b3b1b1';  // Negro por defecto
+                }
+
+                return {
+                  color: color,
+                  weight: 2,  // Grosor de la línea
+                  opacity: 1  // Opacidad de la línea
+                };
+              }, // Esta coma no va si no sigo escribiendo con onEachFeature
+
+               onEachFeature: function (feature, layer) {
+               // Personaliza el contenido del pop-up con las propiedades del GeoJSON
+               layer.bindPopup(
+                `<b> ${feature.properties.NOMBRE}</b><br> ${feature.properties.arboles}`
+                );
+                }
+
+          });  
+
+          document.getElementById('arbolesboton').addEventListener('click', function () {
+            toggleLayer(LAYERS.arbolesLayer, 'arbolesboton', 'arboles', 'es');
+            });
+
+        })
+        .catch(error => console.error("Error al cargar el archivo GeoJSON:", error));
+
+        fetch('Veredas_ancho_caminable.geojson')  // Asegúrate de que el archivo esté en la ruta correcta
+        .then(response => response.json())
+        .then(data => {
+        console.log(data); // Verifica si los datos se cargan correctamente
+        LAYERS.veredasLayer = L.geoJSON(data, {
+             
+            style: function(feature) {
+                let color;
+                switch (feature.properties.anchocamin) {
+                  case 'Verifica':
+                    color = '#93d46e';  
+                    break;
+                  case 'No verifica':
+                    color = '#d4be6e';  
+                    break;
+                  case 'No existe vereda':
+                    color = '#d46e6e';  
+                    break;
+                  default:
+                    color = '#b3b1b1';  // Negro por defecto
+                }
+
+                return {
+                  color: color,
+                  weight: 2,  // Grosor de la línea
+                  opacity: 1  // Opacidad de la línea
+                };       
+              }, // Esta coma no va si no sigo escribiendo con onEachFeature
+               
+              onEachFeature: function (feature, layer) {
+              // Personaliza el contenido del pop-up con las propiedades del GeoJSON
+                layer.bindPopup(
+                `<b> ${feature.properties.NOMBRE}</b><br> ${feature.properties.anchocamin}`
+                );
+              }
+          
+          });
+        
+          document.getElementById('veredasboton').addEventListener('click', function () {
+            toggleLayer(LAYERS.veredasLayer, 'veredasboton', 'veredas', 'es'); // Cambia 'es' por 'en' para inglés
+            });
+
+        })
+        .catch(error => console.error("Error al cargar el archivo GeoJSON:", error));
+
+
+   //eventos botones
+    document.getElementById('fondoblancoboton').addEventListener('click', function () {
+    if (!map.hasLayer(LAYERS.fondoBlancoLayer)) {
+        map.addLayer(LAYERS.fondoBlancoLayer);
+        map.removeLayer(LAYERS.vistaSatelitalLayer);
+        map.removeLayer(LAYERS.Landscape);
+        document.getElementById('fondoblancoboton').classList.add('active');
+        document.getElementById('vistasatelitalboton').classList.remove('active');
+        document.getElementById('Landscapeboton').classList.remove('active');
+    }
+    });
+
+    document.getElementById('vistasatelitalboton').addEventListener('click', function () {
+        if (!map.hasLayer(LAYERS.vistaSatelitalLayer)) {
+            map.addLayer(LAYERS.vistaSatelitalLayer);
+            map.removeLayer(LAYERS.fondoBlancoLayer);
+            map.removeLayer(LAYERS.Landscape);
+            
+            document.getElementById('fondoblancoboton').classList.remove('active');
+            document.getElementById('Landscapeboton').classList.remove('active');
+            document.getElementById('vistasatelitalboton').classList.add('active');
+        }
+    });
+
+    document.getElementById('Landscapeboton').addEventListener('click', function () {
+        if (!map.hasLayer(LAYERS.Landscape)) {
+            map.addLayer(LAYERS.Landscape);
+            map.removeLayer(LAYERS.fondoBlancoLayer);
+            map.removeLayer(LAYERS.vistaSatelitalLayer);
+            
+            document.getElementById('fondoblancoboton').classList.remove('active');
+            document.getElementById('vistasatelitalboton').classList.remove('active');
+            document.getElementById('Landscapeboton').classList.add('active');
+        }
+    });
+
+
+
+
+
+    // Función para mostrar el idioma
+    function showLanguage(lang) {
+        // Ocultar todos los elementos de idioma
+        document.querySelectorAll('.lang').forEach(langElement => {
+            langElement.style.display = 'none';
+        });
+
+        // Mostrar solo el idioma seleccionado
+        document.querySelectorAll(`.lang[data-lang="${lang}"]`).forEach(langElement => {
+            langElement.style.display = 'block';
+        });
+    }
+
+    // Función para cambiar el idioma cuando el usuario hace click
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', (e) => {
+        const selectedLang = e.target.getAttribute('data-lang');
+        
+        // Llamar a la función que muestra el idioma seleccionado
+        showLanguage(selectedLang);
+    });
+    });
+
+// Cargar el mapa y establecer la capa inicial
+document.addEventListener('DOMContentLoaded', () => {
+    map.addLayer(LAYERS.fondoBlancoLayer); // Agregar capa inicial
+    document.getElementById('fondoblancoboton').classList.add('active'); // Activar botón inicial
+    initializeButtonStates(); // Inicializar botones
+    
+});
+
+    
+
+    
+});
+
+
+
+
+    </script>
+
+
+
+
+  </body>
+</html>
