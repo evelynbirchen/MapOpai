@@ -18,7 +18,85 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
       <link rel="stylesheet" href="proyecto1.css">
 
-  
+<style>
+
+  /* eliminar texto de los BOTONES DE DIBUJO */  
+.leaflet-draw-draw-rectangle .sr-only {
+display: none;
+}
+.leaflet-draw-draw-circle .sr-only {
+display: none;
+}
+.leaflet-draw-draw-polygon .sr-only {
+display: none;
+}
+.leaflet-draw-draw-marker .sr-only {
+display: none;
+}
+.leaflet-draw-draw-polyline .sr-only {
+display: none;
+}
+.leaflet-draw-draw-circlemarker .sr-only {
+display: none;
+}
+
+
+              
+/* poner svg a los BOTONES DE DIBUJO */ 
+.leaflet-draw-draw-rectangle {
+    background-image: url('SVG/square.svg');
+    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
+    width: 30px;           /* Ajusta el tamaño del botón */
+    height: 30px;          /* Ajusta el tamaño del botón */
+    text-align: center;    /* Centra el contenido en el contenedor */
+}
+
+.leaflet-draw-draw-circle {
+    background-image: url('SVG/circle.svg');
+    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
+    width: 30px;           /* Ajusta el tamaño del botón */
+    height: 30px;          /* Ajusta el tamaño del botón */
+                text-align: center;    /* Centra el contenido en el contenedor */
+}
+
+.leaflet-draw-draw-polygon {
+    background-image: url('/SVG/pentagon.svg');
+    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
+    width: 30px;           /* Ajusta el tamaño del botón */
+    height: 30px;          /* Ajusta el tamaño del botón */
+    text-align: center;    /* Centra el contenido en el contenedor */
+}
+
+.leaflet-draw-draw-marker {
+    background-image: url('/SVG/geo-alt.svg');
+    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
+    width: 30px;           /* Ajusta el tamaño del botón */
+    height: 30px;          /* Ajusta el tamaño del botón */
+    text-align: center;    /* Centra el contenido en el contenedor */
+}
+
+.leaflet-draw-draw-polyline {
+    background-image: url('/SVG/polyline.svg');
+    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
+    width: 10px;           /* Ajusta el tamaño del botón */
+    height: 10px;          /* Ajusta el tamaño del botón */
+    background-size: cover; /* Asegura que el icono ocupe todo el contenedor */
+    text-align: center;    /* Centra el contenido en el contenedor */
+}
+
+.leaflet-draw-draw-circlemarker {
+    background-image: url('/SVG/pin.svg');
+    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
+    width: 10px;           /* Ajusta el tamaño del botón */
+    height: 10px;          /* Ajusta el tamaño del botón */
+    
+    text-align: center;    /* Centra el contenido en el contenedor */
+}
+
+
+
+</style>
+    
     </head>
   
   <body>
