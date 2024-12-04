@@ -3,11 +3,9 @@
   <head>
       <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
       
-
       <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 
       <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-
 
       <script src="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.umd.js"></script>
       <link href="https://cdn.maptiler.com/maptiler-sdk-js/v2.3.0/maptiler-sdk.css" rel="stylesheet" />
@@ -18,254 +16,55 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
       <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
-      
+      <link rel="stylesheet" href="/proyecto1.css">
+
   
-    <style>
-        
-
-body {
-    margin: 0;
-    padding-top: 56px;
-    font-family: 'Circular Sdt', sans-serif;
-    display: flex;
-    height: 100vh;;
-    color:rgb(34, 63, 27);
-
-}
-
-a {
-color:rgb(34, 63, 27);
-text-decoration: none;
-transition: color 0.3s ease, transform 0.2s ease;
-}
-
-/* Cambia el color del texto de los span dentro de la barra de navegación */
-nav.navbar span {
-color: rgb(34, 63, 27);/* Elige el color que desees */
-}
-
-/* Opcional: si quieres personalizar por separado ciertos estilos */
-nav.navbar span.fw-light {
- color: rgb(34, 63, 27); /* Estilo específico para el span con esta clase */
- margin-left: 10px;
- font-size: 25px;
-
-}
-
-nav.navbar span.fw-semibold {
-color: rgb(34, 63, 27); /* Estilo específico para el span con esta clase */
-margin-left: 10px;  
-margin-right: 10px;  
-font-size: 25px; 
-}
-
-a:hover {
-background-color: #DAFF8B ; 
-color: rgb(34, 63, 27);
-transform: scale(1.1); /* Aumenta el tamaño ligeramente */
-}
-
-.lang {
-     display: none;
-}
-
-/* Mostrar únicamente los elementos en español al cargar la página */
-.lang[data-lang="es"] {
-     display: block;
-}
-        
-#sidebar {
-  overflow-y: auto;
-  height: 100vh; /* Ocupa todo el alto de la pantalla */
-  
-}
-
-#map {
-  height: 100vh; /* El mapa ocupa todo el alto de la pantalla */
-}
-
-.sidebar-button {
-border-radius: 5px !important;
-
-}
-
-.sidebar-button:hover {
-background-color: #DAFF8B ; /* Color de fondo al pasar el cursor */
-color: rgb(34, 63, 27); /* Cambia el color del texto al pasar el cursor */
-
-}       
-
-.btn.active {
-background-color: #a6c5a7;
-color: rgb(34, 63, 27);
-border: 2px solid transparent;
-}
-
-.control-group {
-    margin-bottom: 10px;
-}
-
-.control-group label {
-    font-weight: bold;
-    display: block;
-    margin-bottom: 1px;
-}
-
-
-.sidebar-heading {
-padding: 10px;
-font-size: 10px; /* Personaliza el tamaño */
-font-weight: 400; /* Peso de fuente */
-color:#889689; /* Color gris */
-opacity: 0.55;
-margin-bottom: 1px;
-}
-
-
-
- /* los dos que siguen ajustan el margen de los controles  */
-.leaflet-control-container {
-padding: 15px; /* Ajusta el espacio interno */
-}
-
-.leaflet-top.leaflet-left {
-      top: 5px;
-      left: 5px;
-}
-
-
-/* eliminar texto de los BOTONES DE DIBUJO */  
-.leaflet-draw-draw-rectangle .sr-only {
-display: none;
-}
-.leaflet-draw-draw-circle .sr-only {
-display: none;
-}
-.leaflet-draw-draw-polygon .sr-only {
-display: none;
-}
-.leaflet-draw-draw-marker .sr-only {
-display: none;
-}
-.leaflet-draw-draw-polyline .sr-only {
-display: none;
-}
-.leaflet-draw-draw-circlemarker .sr-only {
-display: none;
-}
-
-
-              
-/* poner svg a los BOTONES DE DIBUJO */ 
-.leaflet-draw-draw-rectangle {
-    background-image: url('SVG/square.svg');
-    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
-    width: 30px;           /* Ajusta el tamaño del botón */
-    height: 30px;          /* Ajusta el tamaño del botón */
-    text-align: center;    /* Centra el contenido en el contenedor */
-}
-
-.leaflet-draw-draw-circle {
-    background-image: url('SVG/circle.svg');
-    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
-    width: 30px;           /* Ajusta el tamaño del botón */
-    height: 30px;          /* Ajusta el tamaño del botón */
-                text-align: center;    /* Centra el contenido en el contenedor */
-}
-
-.leaflet-draw-draw-polygon {
-    background-image: url('SVG/pentagon.svg');
-    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
-    width: 30px;           /* Ajusta el tamaño del botón */
-    height: 30px;          /* Ajusta el tamaño del botón */
-    text-align: center;    /* Centra el contenido en el contenedor */
-}
-
-.leaflet-draw-draw-marker {
-    background-image: url('SVG/geo-alt.svg');
-    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
-    width: 30px;           /* Ajusta el tamaño del botón */
-    height: 30px;          /* Ajusta el tamaño del botón */
-    text-align: center;    /* Centra el contenido en el contenedor */
-}
-
-.leaflet-draw-draw-polyline {
-    background-image: url('SVG/polyline.svg');
-    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
-    width: 10px;           /* Ajusta el tamaño del botón */
-    height: 10px;          /* Ajusta el tamaño del botón */
-    background-size: cover; /* Asegura que el icono ocupe todo el contenedor */
-    text-align: center;    /* Centra el contenido en el contenedor */
-}
-
-.leaflet-draw-draw-circlemarker {
-    background-image: url('SVG/pin.svg');
-    display: inline-block; /* Asegura que el elemento sea un bloque en línea */
-    width: 10px;           /* Ajusta el tamaño del botón */
-    height: 10px;          /* Ajusta el tamaño del botón */
-    
-    text-align: center;    /* Centra el contenido en el contenedor */
-}
-
-.leaflet-draw-edit-edit,
-.leaflet-draw-edit-remove {
-display: none;
-}
-
-
-
-.leyenda span {
-    margin-top: 5px;
-    padding-top: 0px;
-    font-family: 'Circular Sdt', sans-serif;
-    color: rgb(53, 63, 51);
-    font-size: 12px; /* Asegúrate de incluir los textos dentro de las leyendas */
-}
-       
-     </style>
-
-      
-
     </head>
   
   <body>
 
    <!-- Navbar -->
-<nav class="navbar fixed-top navbar-dark ">
-    <div class="container-fluid d-flex align-items-center justify-content-between">
+   
+<nav class="navbar fixed-top navbar-expand-lg">
+    <div class="container-fluid align-items-center justify-content-between">
         <!-- Izquierda: Logo y título -->
         <div class="d-flex align-items-center padding:7px">
            
-                <img src="CONICETNEGRO.png" width="65" height="35" class="d-inline-block align-top me-2" alt=""> 
-                <img src="UNLPNEGRO.png" width="75" height="35" class="d-inline-block align-top me-2" alt=""> 
+                <img src="/logos/CONICETNEGRO.png" width="65" height="35" class=" d-none d-md-inline d-inline-block align-top me-2" alt=""> 
+                <img src="/logos/UNLPNEGRO.png" width="75" height="35" class="d-none d-md-inline d-inline-block align-top me-2" alt=""> 
                 
                 <span class="fw-semibold "> OPai </span>
 
-            <!-- Descripción del observatorio con idiomas -->
+            <!-- Descripción del observatorio con idiomas text truncate hace que se corte el texto al achicar la pantalla-->
             <div class="lang me-2" data-lang="es">
-                <span class=" fw-light"> | Observatorio de Paisaje del Gran La Plata</span>
+                <span class="fw-light text-truncate d-none d-md-inline">| Observatorio de Paisaje del Gran La Plata </span> <!-- Texto completo en pantallas medianas o más grandes -->
+                <span class="fw-light text-truncate d-md-none">| Observatorio </span> <!-- Texto abreviado en pantallas pequeñas -->
             </div>
             <div class="lang" data-lang="en">
-                <span class=" fw-light "> | Landscape Observatory of Greater La Plata</span>
+
+              <span class="fw-light text-truncate d-none d-md-inline">| Landscape Observatory of Greater La Plata </span> <!-- Texto completo en pantallas medianas o más grandes -->
+              <span class="fw-light text-truncate d-md-none">| Observatory </span> <!-- Texto abreviado en pantallas pequeñas -->
+              
             </div>
         </div>
 
-        <!-- Derecha: Botones de redes sociales y selector de idioma -->
+        <!-- Derecha: Botones de redes sociales y selector de idioma las clases collapse y navbar-collapse hacen que desaparezcan los botones si achico la pantalla -->
         <div class="d-flex align-items-center">
             <!-- Botón de Facebook -->
-            <button class="btn   sidebar-button" type="button" id="facebookbutton" aria-expanded="false">
+            <button class="btn collapse navbar-collapse sidebar-button" type="button" id="facebookbutton" aria-expanded="false">
                 <i class="bi bi-facebook  fs-6"></i>
             </button>
             
             <!-- Botón de Instagram -->
-            <button class="btn  sidebar-button" type="button" id="instagrambutton" aria-expanded="false">
+            <button class="btn collapse navbar-collapse sidebar-button" type="button" id="instagrambutton" aria-expanded="false">
                 <i class="bi bi-instagram  fs-6"></i>
             </button>
             
             <!-- Selector de idioma -->
             <div class="dropdown">
                 <button class="btn dropdown-toggle sidebar-button" type="button" id="languageDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                    Language
+                  <span class="d-none d-md-inline">Language</span> <!-- Texto completo en pantallas medianas o más grandes -->
+                  <span class="d-md-none">Lang</span> <!-- Texto abreviado en pantallas pequeñas -->
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="languageDropdown">
                     <li><a class="dropdown-item" href="#" data-lang="en">English</a></li>
@@ -277,131 +76,137 @@ display: none;
 </nav>
 
 
-    <!-- Barra lateral -->
-        <div class="flex-shrink-0 p-3 " style="width: 267px; display: flex; flex-direction: column; height: 650px; ">
-            <a href="/" class="d-flex align-items-center lang" style="pointer-events: none; opacity: 0.5;"> <!-- ACA ESTA DESAILITADO EL ENLACE CON TODA LA SECCION DE STYLE  HACER QUE HOME SEA EL RESET EL PLANo? -->
-              <i class="bi bi-house-fill  me-2 fs-4"></i>  
-              <span class="fs-5 fw-light lang " data-lang="en"> Home </span>
-              <span class="fs-5 fw-light lang " data-lang="es"> Casa </span>  
-            </a>
-
-                       
-            <h5 class="sidebar-heading lang" data-lang="es"> CAPAS BASE </h5>
-            <h5 class="sidebar-heading lang" data-lang="en"> BASE LAYERS </h5>
-                      
-            <label class="btn active w-100 sidebar-button" id="fondoblancoboton">
-                <span class="lang" data-lang="en"> White view </span> <span  class="lang" data-lang="es"> Vista en blanco </span>
-            </label>   
-
-            <label class="btn w-100 sidebar-button" id="vistasatelitalboton">
-                <span class="lang" data-lang="en"> Satellital view </span> <span class="lang" data-lang="es"> Vista satelital </span>
-            </label>      
-            
-            <label class="btn w-100 sidebar-button" id="Landscapeboton">
-                <span class="lang" data-lang="en"> Landscape view </span> <span class="lang" data-lang="es"> Vista paisaje </span>
-            </label> 
-          
-           
-            <h5 class=" sidebar-heading lang " data-lang="es"> CAPAS TEMÁTICAS</h5>
-            <h5 class=" sidebar-heading lang" data-lang="en"> THEME LAYERS </h5>
-           
-            <div class="btn-group-vertical btn-group-toggle w-100 border-radius-0 " data-toggle="buttons">
-                
-                <label class="btn w-100 sidebar-button" id="espaciosverdesboton" >
-                    <span class="lang" data-lang="en"> Green spaces</span> <span class="lang" data-lang="es"> Espacios verdes</span>
-                    
-                </label>
-
-                <div id="leyenda-espacios-verdes" class="leyenda" style="display: none;">                  
-                    
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 20px; height: 20px; background-color: #87bd84; margin-right: 10px; margin-left: 5px;"> </div>
-                        <span class="lang" data-lang="es"> Espacios verdes </span>
-                        <span class="lang" data-lang="en"> Green spaces </span>
-                    </div>           
-                </div>
-
-            </div>
-
-            <div class="btn-group-vertical btn-group-toggle w-100 border-radius-0" data-toggle="buttons">
-                <label class="btn w-100 sidebar-button" id="arbolesboton">
-                    <span class="lang" data-lang="en"> Street Trees </span> <span class="lang" data-lang="es"> Arbolado urbano </span>
-                </label>
-
-                <div id="leyenda-arboles" class="leyenda" style="display: none;">
-                   
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 17px; height: 3px; background-color: #93d46e; margin-right: 10px; margin-left: 5px;"></div>
-                        <span class="lang" data-lang="es"> Más de 10 cada 100 m </span>
-                        <span class="lang" data-lang="en"> More than 10 every 10 m </span>
-                    </div>
-            
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 17px; height: 3px; background-color: #d4be6e; margin-right: 10px; margin-left: 5px;"></div>
-            
-                        <span class="lang" data-lang="es"> Entre 5 y 9 cada 100 m </span>
-                        <span class="lang" data-lang="en"> Between 5 and 9 every 100 m </span>
-                    </div>
-            
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 17px; height: 3px; background-color: #d46e6e; margin-right: 10px; margin-left: 5px;"></div>
-            
-                        <span class="lang" data-lang="es"> Menos de 5 cada 100 m </span>
-                        <span class="lang" data-lang="en"> Less than 5 every 100 m</span>
-                    </div>
-
-                </div>
-
-            </div>
-                
-
-            <div class="btn-group-vertical btn-group-toggle w-100 border-radius-0" data-toggle="buttons">
-                <label class="btn w-100 sidebar-button" id="veredasboton">
-                    <span class="lang" data-lang="en"> Sidewalks </span> <span class="lang" data-lang="es"> Veredas </span>
-                </label>
-
-                <div id="leyenda-veredas" class="leyenda" style="display: none;">
-                    
-                    <div style="display: flex; align-items: center;">
-
-                        <div style="width: 17px; height: 3px; background-color: #93d46e; margin-right: 10px; margin-left: 5px;"></div>
-                        <span class="lang" data-lang="es"> Verifica 1,80 m libres </span>
-                        <span class="lang" data-lang="en"> Verifies 1,80 m free </span>
-
-                    </div>
-            
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 17px; height: 3px; background-color: #d4be6e; margin-right: 10px; margin-left: 5px;"></div>
-            
-                        <span class="lang" data-lang="es"> No verifica </span>
-                        <span class="lang" data-lang="en"> Not verifies  </span>
-                    </div>
-            
-                    <div style="display: flex; align-items: center;">
-                        <div style="width: 17px; height: 3px; background-color: #d46e6e; margin-right: 10px; margin-left: 5px;"></div>
-            
-                        <span class="lang" data-lang="es"> No existe la vereda </span>
-                        <span class="lang" data-lang="en"> There is no sidewalk </span>
-                    </div>
-                </div>
-            </div>
-            <div style="margin-top: auto">
-                <h5 class="sidebar-heading lang" data-lang="es"> Este sitio está diseñado y codificado a mano. Visita el perfil de LinkedIn de <a href="https://www.linkedin.com/in/marianabirche/" id="myLink">  Mariana Birche</a> </h5>
-                <h5 class="sidebar-heading lang" data-lang="en"> This site is hand-crafted and coded. Visit <a href="https://www.linkedin.com/in/marianabirche/" id="myLink"> Mariana Birche's LinkedIn </a> </h5>
-
-            </div>
-            
-        </div>                    
-
-    <!-- Contenedor del mapa -->
-      <div id="map" style= "width: 100%; height: 100%;" ></div>
+  <div class=" container " >
+  
       
+      <!-- Barra lateral -->      
+     <div class="sidebar" id="sidebar">
+      
+      <!-- Contenido de la barra lateral -->
     
-    <script>
+      <a href="/" class=" align-items-center lang" style="pointer-events: none; opacity: 0.5;"> <!-- ACA ESTA DESAILITADO EL ENLACE CON TODA LA SECCION DE STYLE  HACER QUE HOME SEA EL RESET EL PLANo? -->
+        <i class="bi bi-house-fill  me-2 fs-4"></i>  
+        <span class="fs-5 fw-light lang " data-lang="en"> Home </span>
+        <span class="fs-5 fw-light lang " data-lang="es"> Casa </span>  
+      </a>
+  
+            
+      <h5 class="sidebar-heading lang text-truncate" data-lang="es"> CAPAS BASE </h5>
+      <h5 class="sidebar-heading lang text-truncate" data-lang="en"> BASE LAYERS </h5>
+              
+      <label class="btn sidebar-button w-100 text-wrap mb-2 active" id="fondoblancoboton">
+          <span class="lang" data-lang="en"> White view </span> <span  class="lang" data-lang="es"> Vista en blanco </span>
+      </label>   
+    
+      <label class="btn sidebar-button w-100 text-wrap mb-2" id="vistasatelitalboton">
+          <span class="lang" data-lang="en"> Satellital view </span> <span class="lang" data-lang="es"> Vista satelital </span>
+      </label>      
+      
+      <label class="btn sidebar-button w-100 text-wrap mb-2" id="Landscapeboton">
+          <span class="lang" data-lang="en"> Landscape view </span> <span class="lang" data-lang="es"> Vista paisaje </span>
+      </label> 
+  
+   
+      <h5 class=" sidebar-heading lang text-truncate" data-lang="es"> CAPAS TEMÁTICAS</h5>
+      <h5 class=" sidebar-heading lang text-truncate" data-lang="en"> THEME LAYERS </h5>
+   
+      
+        
+        <label class="btn sidebar-button w-100 text-wrap mb-2" id="espaciosverdesboton" data-toggle="buttons" >
+            <span class="lang" data-lang="en"> Green spaces</span> <span class="lang" data-lang="es"> Espacios verdes</span>
+            
+        </label>
+      
+        <div id="leyenda-espacios-verdes" class="leyenda" style="display: none;  align-items: center;">                  
+       
+          <div style="width: 20px; height: 20px; background-color: #87bd84; margin-right: 10px; margin-left: 5px;"> </div>
+          <span class="lang" data-lang="es"> Espacios verdes </span>
+          <span class="lang" data-lang="en"> Green spaces </span>
+                      
+        </div>
+       
+
+
+     
+        <label class="btn sidebar-button w-100 text-wrap mb-2" id="arbolesboton" data-toggle="buttons"> <!-- data toggle lo necesisto apra q se desplegue la leyenda-->
+            <span class="lang" data-lang="en"> Street Trees </span> <span class="lang" data-lang="es"> Arbolado urbano </span>
+        </label>
+   
+        <div id="leyenda-arboles" class="leyenda" style="display: none;">
+           
+          <div style="display: flex; align-items: center;">  <!-- aca se alinea el grafico de la referencia con el texto-->
+             <div style="width: 17px; height: 3px; background-color: #93d46e; margin-right: 10px; margin-left: 5px;"></div>
+             <span class="lang" data-lang="es"> Más de 10 cada 100 m </span>
+             <span class="lang" data-lang="en"> More than 10 every 10 m </span>
+          </div>
+  
+          <div style="display: flex; align-items: center;">
+             <div style="width: 17px; height: 3px; background-color: #d4be6e; margin-right: 10px; margin-left: 5px;"></div>
+              <span class="lang" data-lang="es"> Entre 5 y 9 cada 100 m </span>
+             <span class="lang" data-lang="en"> Between 5 and 9 every 100 m </span>
+          </div>
+  
+          <div style="display: flex; align-items: center;">
+             <div style="width: 17px; height: 3px; background-color: #d46e6e; margin-right: 10px; margin-left: 5px;"></div>
+              <span class="lang" data-lang="es"> Menos de 5 cada 100 m </span>
+             <span class="lang" data-lang="en"> Less than 5 every 100 m</span>
+          </div>
+  
+        </div>
+  
+            
+
+        <label class="btn sidebar-button w-100 text-wrap mb-2" id="veredasboton" data-toggle="buttons">
+            <span class="lang" data-lang="en"> Sidewalks </span> <span class="lang" data-lang="es"> Veredas </span>
+        </label>
+     
+        <div id="leyenda-veredas" class="leyenda" style="display: none;">
+            
+          <div style="display: flex; align-items: center;">
+              <div style="width: 17px; height: 3px; background-color: #93d46e; margin-right: 10px; margin-left: 5px;"></div>
+              <span class="lang" data-lang="es"> Verifica 1,80 m libres </span>
+              <span class="lang" data-lang="en"> Verifies 1,80 m free </span>
+          </div>
+          <div style="display: flex; align-items: center;">
+              <div style="width: 17px; height: 3px; background-color: #d4be6e; margin-right: 10px; margin-left: 5px;"></div>
+              <span class="lang" data-lang="es"> No verifica </span>
+              <span class="lang" data-lang="en"> Not verifies  </span>
+          </div>
+          <div style="display: flex; align-items: center;">
+              <div style="width: 17px; height: 3px; background-color: #d46e6e; margin-right: 10px; margin-left: 5px;"></div>
+              <span class="lang" data-lang="es"> No existe la vereda </span>
+              <span class="lang" data-lang="en"> There is no sidewalk </span>
+          </div>
+          
+        </div>
+  
+      
+  
+      <div style="margin-top: auto">
+          <h5 class="sidebar-heading lang" data-lang="es"> Este sitio está diseñado y codificado a mano. Visita el perfil de LinkedIn de <a href="https://www.linkedin.com/in/marianabirche/" id="myLink">  Mariana Birche</a> </h5>
+          <h5 class="sidebar-heading lang" data-lang="en"> This site is hand-crafted and coded. Visit <a href="https://www.linkedin.com/in/marianabirche/" id="myLink"> Mariana Birche's LinkedIn </a> </h5>
+  
+      </div>
+  
+      
+
+    </div>
+
+  
+  <!-- Contenedor del mapa -->
+  
+              
+  <div class=" main-content ">
+    <div id="map" ></div>
+  </div>
+
+</div>
+
+  <script>
          
 
      // Asegúrate de que el DOM esté completamente cargado antes de inicializar el mapa
-  document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
     // Claves de MapTiler
     const key = 'DZHOeoNjcOdQ0204Rrhw';
     maptilersdk.config.apiKey = key;
@@ -468,7 +273,8 @@ display: none;
     let drawControl = new L.Control.Draw({
         edit: {
             featureGroup: drawnItems, // Permite editar elementos dibujados
-
+            edit: false, // Desactiva la edición
+            remove: false 
         },
         draw: {
             polyline: true,
@@ -751,18 +557,9 @@ document.addEventListener('DOMContentLoaded', () => {
     
 });
 
-    
-
-    
 });
 
-
-
-
     </script>
-
-
-
 
   </body>
 </html>
