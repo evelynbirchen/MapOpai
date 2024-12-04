@@ -250,7 +250,7 @@ display: none;
 }
 
 .leaflet-draw-draw-polygon {
-    background-image: url('/SVG/pentagon.svg');
+    background-image: url('SVG/pentagon.svg');
     display: inline-block; /* Asegura que el elemento sea un bloque en línea */
     width: 30px;           /* Ajusta el tamaño del botón */
     height: 30px;          /* Ajusta el tamaño del botón */
@@ -258,7 +258,7 @@ display: none;
 }
 
 .leaflet-draw-draw-marker {
-    background-image: url('/SVG/geo-alt.svg');
+    background-image: url('SVG/geo-alt.svg');
     display: inline-block; /* Asegura que el elemento sea un bloque en línea */
     width: 30px;           /* Ajusta el tamaño del botón */
     height: 30px;          /* Ajusta el tamaño del botón */
@@ -266,7 +266,7 @@ display: none;
 }
 
 .leaflet-draw-draw-polyline {
-    background-image: url('/SVG/polyline.svg');
+    background-image: url('SVG/polyline.svg');
     display: inline-block; /* Asegura que el elemento sea un bloque en línea */
     width: 10px;           /* Ajusta el tamaño del botón */
     height: 10px;          /* Ajusta el tamaño del botón */
@@ -275,7 +275,7 @@ display: none;
 }
 
 .leaflet-draw-draw-circlemarker {
-    background-image: url('/SVG/pin.svg');
+    background-image: url('SVG/pin.svg');
     display: inline-block; /* Asegura que el elemento sea un bloque en línea */
     width: 10px;           /* Ajusta el tamaño del botón */
     height: 10px;          /* Ajusta el tamaño del botón */
