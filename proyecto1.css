@@ -234,7 +234,7 @@ display: none;
               
 /* poner svg a los BOTONES DE DIBUJO */ 
 .leaflet-draw-draw-rectangle {
-    background-image: url('/SVG/square.svg');
+    background-image: url('SVG/square.svg');
     display: inline-block; /* Asegura que el elemento sea un bloque en línea */
     width: 30px;           /* Ajusta el tamaño del botón */
     height: 30px;          /* Ajusta el tamaño del botón */
@@ -242,7 +242,7 @@ display: none;
 }
 
 .leaflet-draw-draw-circle {
-    background-image: url('/SVG/circle.svg');
+    background-image: url('SVG/circle.svg');
     display: inline-block; /* Asegura que el elemento sea un bloque en línea */
     width: 30px;           /* Ajusta el tamaño del botón */
     height: 30px;          /* Ajusta el tamaño del botón */
