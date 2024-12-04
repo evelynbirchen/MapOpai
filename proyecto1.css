@@ -1,13 +1,86 @@
 
-
-body {
+html, body {
     margin: 0;
-    padding-top: 56px;
-    font-family: 'Circular Sdt', sans-serif;
-    display: flex;
-    height: 100vh;;
-    color:rgb(34, 63, 27);
+    padding: 0;
+    margin-top: 30px;
+    box-sizing: border-box; /* Asegura que los tamaños incluyan padding y border */
+    height: 100vh; /* Ajusta la altura del body al 100% del viewport */
+    width: 100vw; 
+    overflow: hidden; /* Evita scroll si no debería existir */
+}
 
+.container {
+    display: flex; /* Flexbox para distribución */
+    margin: 0; /* Asegura que no haya márgenes */
+    padding: 0; /* Elimina rellenos internos */
+    height: 100vh; /* Asegura que el contenedor ocupe todo el viewport */
+    width: 100vw; /* Asegura que ocupe todo el ancho */
+    box-sizing: border-box; /* Ajusta los bordes y paddings dentro del tamaño */
+    max-width: 100%; /* ESTE ERAAAAAAAAAAA  Elimina la restricción de ancho máximo */
+    margin-left: 0; /* Quita márgenes laterales */
+    margin-right: 0;
+    
+}
+  
+  /* Barra lateral */
+  .sidebar {
+    flex: 0 0 auto; /* Ancho fijo que no colapsa */
+    height: calc(100vh - 60px);
+    background-color: #ffffff;
+    overflow-y: auto; /* Scroll interno si es necesario */
+    min-width: 100px; /* Ancho mínimo */
+    max-width: 300px; /* Ancho máximo */
+    width: 20%; /* Ancho estándar */
+    padding: 10px;
+    margin-top: 0px;
+    margin-left: 0;
+}
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 15%; /* Barra más angosta en dispositivos pequeños */
+    }
+}
+
+  .main-content {
+    flex: 1; /* Ocupa el espacio restante */
+    height: calc(100vh - 60px);
+    position: relative;
+    overflow: hidden;
+    margin-top: 0;
+    margin-left: 0;
+    margin-bottom: 0;
+    margin-right: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 0;
+  }
+
+  
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    background-color: white;
+    height: 60px; /* Altura fija */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+
+
+ 
+  #map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
 }
 
 a {
@@ -51,26 +124,29 @@ transform: scale(1.1); /* Aumenta el tamaño ligeramente */
      display: block;
 }
         
-#sidebar {
-  overflow-y: auto;
-  height: 100vh; /* Ocupa todo el alto de la pantalla */
+
+
   
-}
-
-#map {
-  height: 100vh; /* El mapa ocupa todo el alto de la pantalla */
-}
-
 .sidebar-button {
-border-radius: 5px !important;
-
+    display: flex;
+    word-wrap: break-word;
+    justify-content: center; /* Centra el texto horizontalmente */
+    align-items: center; /* Centra el texto verticalmente */
+    height: auto; /* Permite que los botones sean más altos si el texto ocupa más de una línea */
+    font-size: 0.9rem; /* Reduce ligeramente el tamaño del texto para pantallas pequeñas */
+    border-radius: 5px !important;
+}
+  
+.text-wrap {
+    word-wrap: break-word; /* Asegura que el texto se ajuste a varias líneas si es necesario */
 }
 
 .sidebar-button:hover {
 background-color: #DAFF8B ; /* Color de fondo al pasar el cursor */
 color: rgb(34, 63, 27); /* Cambia el color del texto al pasar el cursor */
 
-}       
+} 
+
 
 .btn.active {
 background-color: #a6c5a7;
@@ -99,7 +175,6 @@ margin-bottom: 1px;
 }
 
 
-
  /* los dos que siguen ajustan el margen de los controles  */
 .leaflet-control-container {
 padding: 15px; /* Ajusta el espacio interno */
@@ -108,6 +183,30 @@ padding: 15px; /* Ajusta el espacio interno */
 .leaflet-top.leaflet-left {
       top: 5px;
       left: 5px;
+}
+
+.leaflet-draw-actions li {
+    list-style-type: none;  /* Elimina el punto o marcador de la lista */
+    margin: 0;              /* Elimina el margen del <li> */
+    padding: 0;             /* Elimina el relleno del <li> */
+}
+
+.leaflet-draw-actions li a {
+    list-style-type: none;  /* Elimina el punto o marcador de la lista */
+    margin: 0;              /* Elimina el margen del <li> */
+    padding: 10;  
+    text-decoration: none; /* Quitar subrayado */
+    color: #007bff; /* Color del texto */
+    font-weight: bold; /* Texto en negrita */
+    display: block; /* Hacer que el enlace ocupe todo el área del `<li>` */
+}
+
+
+.leaflet-draw-actions {
+    margin-top: 10px;
+    padding: 0 !important;   /* Elimina el relleno */
+    font-size: 10px;
+    cursor: pointer;   
 }
 
 
@@ -184,10 +283,7 @@ display: none;
     text-align: center;    /* Centra el contenido en el contenedor */
 }
 
-.leaflet-draw-edit-edit,
-.leaflet-draw-edit-remove {
-display: none;
-}
+
 
 
 
